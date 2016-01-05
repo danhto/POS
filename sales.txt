@@ -1,0 +1,6 @@
+Admin, 12/16/2015, 0.30, , 0, B&W Col DS, 1, B&W Col DS, 1, B&W Col DS, 1, 
+Admin, 12/16/2015, 0.40, , 0, B&W Col DS, 1, B&W Col DS, 1, B&W Col DS, 1, B&W Col DS, 1, 
+Admin, 12/16/2015, 0.20, , 0, B&W Col DS, 1, B&W Col DS, 1, 
+Admin, 12/16/2015, -0.40, , 0, B&W Col DS, -1, B&W Col DS, -1, B&W Col DS, -1, B&W Col DS, -1, 
+Admin, 12/16/2015, 0.30, , 0, B&W Col DS, 1, B&W Col DS, 1, B&W Col DS, 1, 
+Admin, 12/16/2015, -0.30, , 0, B&W Col DS, -1, B&W Col DS, -1, B&W Col DS, -1, 

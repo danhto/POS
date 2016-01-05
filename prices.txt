@@ -1,0 +1,25 @@
+Uppercuts, upcuts, 25
+Roundhouse, rdhs, 35
+Shoes, shs, 15
+Candy, cdy, 1
+B&W Let SS, bwletss, 0.05
+B&W Let DS, bwletds, 0.05
+Col Let SS, cletss, 0.1
+Col Let DS, cletds, 0.2
+B&W Leg SS, bwlegss, 0.05
+B&W Leg DS, bwlegds, 0.1
+Col Leg SS, clegss, 0.1
+Col Leg DS, clegds, 0.2
+B&W Tab SS, bwtabss, 0.15
+B&W Tab DS, bwtabds, 0.2
+Col Tab SS, ctabss, 0.15
+Col Tab DS, ctabds, 0.25
+B&W Col SS, bwcolss, 0.1
+B&W Col DS, bwcolds, 0.1
+Col Col SS, ccolss, 0.15
+Col Col DS, ccolds, 0.2
+Yeti, yts, 100
+Yeti, yts, 100, 
+Pen, pen, 2, 
+Pen, pen, 2, 
+Space, spc, 5, 
