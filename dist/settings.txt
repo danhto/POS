@@ -1,0 +1,6 @@
+icon, 
+printer, 
+color, 192/192/192
+title, 
+tillCode, 0
+tabs, Default Tab

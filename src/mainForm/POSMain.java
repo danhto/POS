@@ -79,6 +79,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -904,6 +905,7 @@ public class POSMain extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(productArea, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(calcPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -1548,6 +1550,9 @@ public class POSMain extends javax.swing.JFrame {
   
   private void createPayDialog(double total)
   {
+    JPanel payDialogContainer = new JPanel();
+    payDialogContainer.setLayout(new GridLayout(1, 2));
+      
     this.totalInfo = new JLabel(new StringBuilder().append("  Total to pay = ").append(String.format("%.2f", new Object[] { Double.valueOf(total) })).toString());
     Font f = new Font(Font.SANS_SERIF, 3, 24);
     totalInfo.setFont(f);
@@ -1598,7 +1603,7 @@ public class POSMain extends javax.swing.JFrame {
     this.inputPayPanel.add(totalGiftCard);
     this.inputPayPanel.add(totalDiscount);
     this.inputPayPanel.add(this.totalDiscountAmount);
-
+    
     this.inputPayPanel.getInputMap(2).put(KeyStroke.getKeyStroke(10, 0), "keyPress");
 
     this.inputPayPanel.getActionMap().put("keyPress", null);
@@ -1717,7 +1722,121 @@ public class POSMain extends javax.swing.JFrame {
     });
     this.totalCashTendered.addAncestorListener(new RequestFocusListener());
 
-    this.totalConfirm = JOptionPane.showConfirmDialog(this.rootPane, this.inputPayPanel, "Pay Screen", 2, -1);
+    // Create button key pad for pay dialog
+    JPanel payDialogKeyPad = new JPanel();
+    payDialogKeyPad.setLayout(new GridLayout(4, 3));
+    payDialogKeyPad.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new TitledBorder("Keypad")));
+    payDialogKeyPad.setBackground(bgColor);
+    
+    JButton b0 = new JButton("0");
+    b0.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b0.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "0");
+        }
+    });
+    JButton b1 = new JButton("1");
+    b1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b1.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "1");
+        }
+    });
+    JButton b2 = new JButton("2");
+    b2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b2.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "2");
+        }
+    });
+    JButton b3 = new JButton("3");
+    b3.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b3.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "3");
+        }
+    });
+    JButton b4 = new JButton("4");
+    b4.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b4.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "4");
+        }
+    });
+    JButton b5 = new JButton("5");
+    b5.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b5.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "5");
+        }
+    });
+    JButton b6 = new JButton("6");
+    b6.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b6.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "6");
+        }
+    });
+    JButton b7 = new JButton("7");
+    b7.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b7.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "7");
+        }
+    });
+    JButton b8 = new JButton("8");
+    b8.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b8.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "8");
+        }
+    });
+    JButton b9 = new JButton("9");
+    b9.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    b9.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            totalCashTendered.setText(totalCashTendered.getText() + "9");
+        }
+    });
+    JButton bdelete = new JButton("Delete");
+    bdelete.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    bdelete.addActionListener(new ActionListener()
+    {
+        public void actionPerformed (ActionEvent e){
+            if (!totalCashTendered.getText().isEmpty()) {
+                totalCashTendered.setText(totalCashTendered.getText().substring(0, totalCashTendered.getText().length() - 1));
+            }
+        }
+    });
+    
+    // Add number keys to panel
+    payDialogKeyPad.add(b1);
+    payDialogKeyPad.add(b2);
+    payDialogKeyPad.add(b3);
+    payDialogKeyPad.add(b4);
+    payDialogKeyPad.add(b5);
+    payDialogKeyPad.add(b6);
+    payDialogKeyPad.add(b7);
+    payDialogKeyPad.add(b8);
+    payDialogKeyPad.add(b9);
+    payDialogKeyPad.add(b0);
+    payDialogKeyPad.add(bdelete);
+    
+    // Add panels to container and display in JOptionPane
+    payDialogContainer.add(inputPayPanel);
+    payDialogContainer.add(payDialogKeyPad);
+    this.totalConfirm = JOptionPane.showConfirmDialog(this.rootPane, payDialogContainer, "Pay Screen", 2, -1);
+    //this.totalConfirm = JOptionPane.showConfirmDialog(this.rootPane, this.inputPayPanel, "Pay Screen", 2, -1);
 
     while ((this.cashTendered == 0.0D) || (this.multiPayment))
     {
