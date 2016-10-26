@@ -10,7 +10,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 import java.awt.Window;
@@ -53,6 +55,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
@@ -101,7 +104,7 @@ public class POSMain extends javax.swing.JFrame {
   public final int os;
   public final int OS_WIN = 0;
   public final int OS_MAC = 1;
-
+  
   StringBuffer calculation = new StringBuffer("");
   StringBuffer subStep = new StringBuffer("");
 
@@ -165,6 +168,7 @@ public class POSMain extends javax.swing.JFrame {
     else {
       this.os = 0;
     }
+
     initComponents();
     initComponents2();
     POSLogin.centerWindow(this);
@@ -237,7 +241,12 @@ public class POSMain extends javax.swing.JFrame {
         this.productArea.removeTabAt(0);
         POSLogin.isPrintOffice = false;
     }    
-        
+       
+    
+    this.setPreferredSize(POSLogin.screenSize);
+    this.setSize(POSLogin.screenSize);
+
+    /*
     if (this.os == OS_MAC)
     {
         this.setPreferredSize(new Dimension(1154, 855));
@@ -246,10 +255,11 @@ public class POSMain extends javax.swing.JFrame {
     else {
         this.setPreferredSize(new Dimension(1154, 850));
         this.setSize(new Dimension(1154, 860));
-    }
+    }*/
     
     this.discountTotal.setVisible(false);   //hide discount buttons 
     this.discountItem.setVisible(false);
+    
   }
 
   private boolean checkOpenWindows()
@@ -639,14 +649,17 @@ public class POSMain extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        mainLogo.setPreferredSize(jPanel1.getSize()
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(mainLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -654,6 +667,8 @@ public class POSMain extends javax.swing.JFrame {
                 .addComponent(mainLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        mainLogo.setPreferredSize(jPanel1.getSize());
 
         calcPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         calcPanel.setPreferredSize(new java.awt.Dimension(424, 430));
@@ -896,18 +911,17 @@ public class POSMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addComponent(productArea, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(calcPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(productArea, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(calcPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -921,6 +935,11 @@ public class POSMain extends javax.swing.JFrame {
                 .addComponent(calcPanel, 434, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        productArea.setPreferredSize(POSLogin.screenSize);
+        productArea.setSize(POSLogin.screenSize);
+        productArea.setPreferredSize(POSLogin.screenSize);
+        productArea.setSize(POSLogin.screenSize);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1341,15 +1360,20 @@ public class POSMain extends javax.swing.JFrame {
         Map<String, String> settings = database.getSettings();
         
         String tabs = settings.get("tabs");
+        productArea.setPreferredSize(POSLogin.screenSize);
+        productArea.setSize(POSLogin.screenSize);
+        this.repaint();
         
         for (String tabName : tabs.split("/"))
         {
             JPanel tmpPanel = new JPanel();
             tmpPanel.setName(tabName);
-            tmpPanel.setPreferredSize(new Dimension(735, 440));
+            //tmpPanel.setPreferredSize(new Dimension(735, 440));
+            tmpPanel.setPreferredSize(POSLogin.screenSize);
             tmpPanel.setBackground(bgColor);
             productArea.add(tmpPanel);
         }
+        
     }
     
   private void calcButtonPress(String key, String type)

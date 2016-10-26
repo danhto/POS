@@ -45,6 +45,7 @@ public class POSLogin extends javax.swing.JFrame {
   public static Color backgroundColor;
   public static String currentTill;
   public static String user = "";
+  public static Dimension screenSize;
 
   private final Map<String, String> credentials = initializeValues();
   private String validTillCodes;
@@ -283,7 +284,7 @@ public class POSLogin extends javax.swing.JFrame {
   public static void centerWindow(Window frame)
   {
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-
+    screenSize = dimension;
     int x = (int)((dimension.getWidth() - frame.getWidth()) / 2.0D);
     int y = (int)((dimension.getHeight() - frame.getHeight()) / 2.0D);
 

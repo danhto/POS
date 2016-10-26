@@ -149,7 +149,7 @@
 /* 201 */           br.close();
 /*     */         }
 /*     */ 
-/* 204 */         if ((file.getName().equals("prices.txt")) && (file.length() == 0L))
+/* 204 */         if ((file.getName().equals("prices.txt")) && (file.length() == 0L) && false)
 /*     */         {
 /* 206 */           BufferedWriter br = new BufferedWriter(new FileWriter(file));
 /*     */ 
