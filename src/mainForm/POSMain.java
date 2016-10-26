@@ -223,7 +223,7 @@ public class POSMain extends javax.swing.JFrame {
     this.jPanel1.setBackground(bgColor);    //panel holding main logo panel
     
     if (!database.settings.get("icon").trim().isEmpty()) {
-        this.mainLogo.setIcon(new StretchIcon("./logo.png"));
+        this.mainLogo.setIcon(new StretchIcon("./" + database.getSettings().get("icon").trim()));
     }
     //this.mainDHTlogo.setIcon(new StretchIcon(getClass().getResource("/dhtlogo.png")));
     
@@ -658,7 +658,7 @@ public class POSMain extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addComponent(mainLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(

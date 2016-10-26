@@ -1,5 +1,5 @@
 color, 51/255/153
-icon, logo.png
+icon, logo.jpg
 printer, Star TSP100 Cutter (TSP143)
 tabs, flip/Chase/Enhance
 tillCode, 0/100
