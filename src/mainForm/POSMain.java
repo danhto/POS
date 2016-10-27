@@ -171,7 +171,7 @@ public class POSMain extends javax.swing.JFrame {
 
     initComponents();
     initComponents2();
-    POSLogin.centerWindow(this);
+    //POSLogin.centerWindow(this);
     setDefaultCloseOperation(0);
     
     setIconImage(new ImageIcon("loaderS.png").getImage());

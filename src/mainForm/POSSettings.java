@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -684,11 +685,15 @@ public class POSSettings extends javax.swing.JFrame {
             {
                 if (c.getName().trim().equals(this.tabsList.getSelectedItem().toString().trim())) {
                    panel = (JPanel)c;
+                   break;
                 }
             }    
             
         }
-        panel.add(button);
+        
+        panel.setLayout(new GridLayout(0, 6));
+        panel.add(button, panel.getComponentCount());
+        //panel.add(button);
         panel.revalidate();
         panel.repaint();
 
@@ -885,8 +890,7 @@ public class POSSettings extends javax.swing.JFrame {
             else
             {
                 POSDatabase database = new POSDatabase();
-                database.getExtLayout();
-                newItemLayout = database.extItemLayout;
+                newItemLayout = database.getExtLayout();
                 
                 for (Object[] itm : newItemLayout)
                 {
@@ -899,7 +903,13 @@ public class POSSettings extends javax.swing.JFrame {
         {
           DefaultTableModel model = (DefaultTableModel)this.priceDataTable.getModel();
 
-          for (int i = this.initialItemCount - 1; i < model.getRowCount(); i++) {
+          int start = 0;
+          
+          if (this.initialItemCount > 0) {
+              start = this.initialItemCount - 1;
+          }
+          
+          for (int i = start; i < model.getRowCount(); i++) {
             br.write(new StringBuilder().append(model.getValueAt(i, 0).toString().trim()).append(", ").append(model.getValueAt(i, 1).toString().trim()).append(", ").append(model.getValueAt(i, 2).toString().trim()).append(", ").append(System.lineSeparator()).toString());
           }
 
@@ -2780,12 +2790,13 @@ public class POSSettings extends javax.swing.JFrame {
         POSDatabase database = new POSDatabase();
         ArrayList<Object[]> currentLayout = database.getExtLayout();
         boolean tabsChanged = false;
+        ArrayList<Object[]> removeList = new ArrayList(); 
         
         for (Object[] obj : currentLayout)
         {
             String itemInfo[]= (String[]) obj;
-
-            if (itemInfo[2].trim().equals(oldTabName))
+                
+            if (!itemInfo[2].trim().equals(oldTabName))
             {
                 String tmpInfo[] = {itemInfo[0], itemInfo[1], newTabName};
                 currentLayout.remove(obj);
@@ -2800,6 +2811,7 @@ public class POSSettings extends javax.swing.JFrame {
                 defaultTabChange = false;
             }    
         }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
