@@ -64,7 +64,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jPanel6" min="-2" pref="186" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel7" min="-2" pref="365" max="-2" attributes="0"/>
+                                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
@@ -153,7 +153,7 @@
                               <Component id="addUserName" max="32767" attributes="0"/>
                               <Component id="addUserPass" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="addUserButton" pref="135" max="32767" attributes="0"/>
+                                  <Component id="addUserButton" pref="140" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -173,7 +173,7 @@
                               <Component id="addUserPass" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="addUserButton" pref="47" max="32767" attributes="0"/>
+                          <Component id="addUserButton" pref="50" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -843,6 +843,9 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="defaultExtItemTab">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="Default Tab" noResource="true"/>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Default Tab">
@@ -1276,7 +1279,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel22" min="-2" pref="160" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel17" min="-2" max="-2" attributes="0"/>

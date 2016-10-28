@@ -662,51 +662,78 @@ public class POSSettings extends javax.swing.JFrame {
     {
       if (checkValidAlphaNumeric(this.newItemName.getText()))
       {
-        JButton button;
-        if (extraLength != 0)
-        {
-          button = new JButton(new StringBuilder().append("<html>").append(this.newItemName.getText()).append("<br>").append(this.newItemNameExtra.getText()).append("</html>").toString());
-          button.setName(new StringBuilder().append(this.newItemName.getText()).append("/").append(this.newItemNameExtra.getText()).toString());
-        }
-        else
-        {
-          button = new JButton(this.newItemName.getText().trim());
-          button.setName(this.newItemName.getText().trim());
-        }
-        
-        button.setSize(80, 80); 
-        button.setPreferredSize(new Dimension(80, 80));
-        
-        JPanel panel = null;
+            POSDatabase database = new POSDatabase();
+            ArrayList<Object[]> currentItems = database.getExtLayout();
+            String itemName = this.newItemName.getText();
+            boolean itemExists = false;
 
-        for (Component c : this.extItemTabPane.getComponents())
-        {
-            if (c.getName() != null)
-            {
-                if (c.getName().trim().equals(this.tabsList.getSelectedItem().toString().trim())) {
-                   panel = (JPanel)c;
-                   break;
+            if (extraLength != 0) {
+                itemName = itemName + "/" + this.newItemNameExtra.getText();
+            }
+
+            for (Object[] items: currentItems) {
+
+                if (itemName.equals(items[0])) {
+                    itemExists = true;
+                    break;
                 }
-            }    
-            
-        }
+
+            }
         
-        panel.setLayout(new GridLayout(0, 6));
-        panel.add(button, panel.getComponentCount());
-        //panel.add(button);
-        panel.revalidate();
-        panel.repaint();
+            if (!itemExists) 
+            {
+                JButton button;
+                if (extraLength != 0)
+                {
+                  button = new JButton(new StringBuilder().append("<html>").append(this.newItemName.getText()).append("<br>").append(this.newItemNameExtra.getText()).append("</html>").toString());
+                  button.setName(new StringBuilder().append(this.newItemName.getText()).append("/").append(this.newItemNameExtra.getText()).toString());
+                }
+                else
+                {
+                  button = new JButton(this.newItemName.getText().trim());
+                  button.setName(this.newItemName.getText().trim());
+                }
 
-        addData("item", new StringBuilder().append(this.currCodeList.getSelectedItem()).append(", ").append(this.tabsList.getSelectedItem()).toString());
+                button.setSize(80, 80); 
+                button.setPreferredSize(new Dimension(80, 80));
 
-        setDelExtItemsList();
+                JPanel panel = null;
 
-        if (!this.delExtItem.isEnabled()) {
-          this.delExtItem.setEnabled(true);
-        }
+                for (Component c : this.extItemTabPane.getComponents())
+                {
+                    if (c.getName() != null)
+                    {
+                        String tabName = c.getName();
+                        
+                        if (tabName.trim().equals(this.tabsList.getSelectedItem().toString().trim())) {
+                           panel = (JPanel)c;
+                           break;
+                        }
+                    }    
 
-        this.newItemName.setText("");
-        this.newItemNameExtra.setText("");
+                }
+
+                panel.setLayout(new GridLayout(0, 6));
+                panel.add(button, panel.getComponentCount());
+                //panel.add(button);
+                panel.revalidate();
+                panel.repaint();
+
+                addData("item", new StringBuilder().append(this.currCodeList.getSelectedItem()).append(", ").append(this.tabsList.getSelectedItem()).toString());
+
+                setDelExtItemsList();
+
+                if (!this.delExtItem.isEnabled()) {
+                  this.delExtItem.setEnabled(true);
+                }
+
+                this.newItemName.setText("");
+                this.newItemNameExtra.setText("");
+        
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Item exists with that name already. Please delete the old one to create this one or choose a different name.", "Duplicate items", 0, this.msgIcon);
+            }
       }
       else {
         JOptionPane.showMessageDialog(null, "Please use only letters and/or numbers", "Invalid characters", 0, this.msgIcon);
@@ -882,15 +909,22 @@ public class POSSettings extends javax.swing.JFrame {
         {
             if (!defaultTabChange)
             {
+                String newName;
+                
                 if (!this.newItemNameExtra.getText().trim().isEmpty())
-                    br.write(new StringBuilder().append(this.newItemName.getText().trim()).append("/").append(this.newItemNameExtra.getText().trim()).append(", ").append(item).append(System.lineSeparator()).toString());
-                else
-                    br.write(new StringBuilder().append(this.newItemName.getText().trim()).append(", ").append(item).append(System.lineSeparator()).toString());
+                {
+                    newName = this.newItemName.getText().trim() + "/" + this.newItemNameExtra.getText().trim();
+                    br.write(new StringBuilder().append(newName).append(", ").append(item).append(System.lineSeparator()).toString());
+                }
+                else {
+                    newName = this.newItemName.getText().trim();
+                    br.write(new StringBuilder().append(newName).append(", ").append(item).append(System.lineSeparator()).toString());
+                    
+                }
+                        
             }    
             else
             {
-                POSDatabase database = new POSDatabase();
-                newItemLayout = database.getExtLayout();
                 
                 for (Object[] itm : newItemLayout)
                 {
@@ -1128,9 +1162,13 @@ public class POSSettings extends javax.swing.JFrame {
         
     }
     
+    String defTabName = database.getSettings().get("tabs").split("/")[0].trim();
+
     //set the name of the default tab to the one on file
-    newDefaultTabName.setText(database.getSettings().get("tabs").split("/")[0].trim());
-    changeDefaultTabName.doClick();
+    if (!defTabName.equals("Default Tab")) {
+        newDefaultTabName.setText(defTabName);
+        changeDefaultTabName.doClick();
+    }
 
     for (Object[] c : comps)
     {
@@ -1448,7 +1486,7 @@ public class POSSettings extends javax.swing.JFrame {
                     .addComponent(addUserName)
                     .addComponent(addUserPass)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                        .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -1462,7 +1500,7 @@ public class POSSettings extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addUserPass, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+                .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Delete User"));
@@ -1709,7 +1747,7 @@ public class POSSettings extends javax.swing.JFrame {
                             .addGroup(tabGenSettingsLayout.createSequentialGroup()
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(199, 199, 199))
                     .addGroup(tabGenSettingsLayout.createSequentialGroup()
                         .addGroup(tabGenSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1834,6 +1872,8 @@ public class POSSettings extends javax.swing.JFrame {
         );
 
         frameSettings.addTab("Prices", tabPriceSettings);
+
+        defaultExtItemTab.setName("Default Tab"); // NOI18N
 
         javax.swing.GroupLayout defaultExtItemTabLayout = new javax.swing.GroupLayout(defaultExtItemTab);
         defaultExtItemTab.setLayout(defaultExtItemTabLayout);
@@ -2422,7 +2462,7 @@ public class POSSettings extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(tabPrintSettingsLayout.createSequentialGroup()
                         .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2743,8 +2783,8 @@ public class POSSettings extends javax.swing.JFrame {
         {
             oldTabName = extItemTabPane.getTitleAt(0).trim();
             extItemTabPane.setTitleAt(0, newDefaultTabName.getText().trim());
-            
             extItemTabPane.getComponentAt(0).setName(newDefaultTabName.getText().trim());
+            
             POSDatabase database = new POSDatabase();
             this.newSettings = database.getSettings();
             String tabs = database.getSettings().get("tabs");
@@ -2775,7 +2815,6 @@ public class POSSettings extends javax.swing.JFrame {
             changeExtItemsAssociation(oldTabName, newDefaultTabName.getText().trim());
             
             newDefaultTabName.setText("");
-            System.out.println(extItemTabPane.getComponentAt(0).getName());
 
         }
         else
@@ -2796,7 +2835,7 @@ public class POSSettings extends javax.swing.JFrame {
         {
             String itemInfo[]= (String[]) obj;
                 
-            if (!itemInfo[2].trim().equals(oldTabName))
+            if (itemInfo[2].trim().equals(oldTabName))
             {
                 String tmpInfo[] = {itemInfo[0], itemInfo[1], newTabName};
                 currentLayout.remove(obj);
@@ -2806,6 +2845,7 @@ public class POSSettings extends javax.swing.JFrame {
             
             if (tabsChanged)
             {    
+                newItemLayout = currentLayout;
                 defaultTabChange = true;
                 addData("item", "");
                 defaultTabChange = false;

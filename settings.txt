@@ -1,6 +1,6 @@
 color, 192/192/192
 icon, 
 printer, 
-tabs, Default Tab
+tabs, Trick/New tings
 tillCode, 0
 title, 
