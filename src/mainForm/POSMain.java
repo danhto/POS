@@ -1420,7 +1420,7 @@ public class POSMain extends javax.swing.JFrame {
       }
       catch (NullPointerException e)
       {
-        System.err.println(new StringBuilder().append("Error: ").append(this.itemData.entrySet()).toString());
+        System.err.println(new StringBuilder().append("Error: ").append(key + " / " + type).toString());
       }
     }
   }
@@ -2813,6 +2813,7 @@ public class POSMain extends javax.swing.JFrame {
             if (tmpPanel.getName().trim().equals(targetTab))
             {
                 targetTabPanel = tmpPanel;
+                break;
             }
           }  
       }
@@ -2824,8 +2825,10 @@ public class POSMain extends javax.swing.JFrame {
           POSMain.this.calcButtonPress(code, "prod");
         }
       });
-
-      targetTabPanel.add(button);
+      
+      if (targetTabPanel != null) {
+        targetTabPanel.add(button);
+      }
     }
 
     //this.extraSaleItemsTab.setName(itemName);
